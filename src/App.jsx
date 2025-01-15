@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div>
       <h1 className="logo">Padre Gino's Pizza – Order Now</h1>
-      <Order/>
+      <Order />
     </div>
   );
 };

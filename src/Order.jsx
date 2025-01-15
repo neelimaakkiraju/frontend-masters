@@ -1,42 +1,109 @@
+import { useState,useEffect } from "react";
 import Pizza from "./Pizza";
 
-
+const intl = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
 export default function Order() {
-  const pizzaType = "pepperoni";
-  const pizzaSize = "M"
+  
+  const [pizzaType, setPizzaType] = useState("pepperoni");
+  const [pizzaSize, setPizzaSize] = useState("M");
+  const [pizzaTypes,setPizzaTypes] = useState([])
+  const [loading,setLoading]= useState(true)
+
+
+let price,selectedPizza;
+
+if(!loading){
+  selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
+}
+
+async function fetchPizzas(){
+  const pizzaData = await fetch("/api/pizzas")
+  const data = await pizzaData.json()
+  setPizzaTypes(data)
+  setLoading(false)
+}
+useEffect(()=>{
+  fetchPizzas()
+
+},[])
 
   return (
     <div className="order">
-        <h2>Create Order</h2>
+      <h2>Create Order</h2>
       <form>
         <div>
           <div>
-            <label htmlFor="pizza-type"></label>
-            <select name="pizza-type" value={pizzaType}>
-              <option value="pepparoni">the pepperoni</option>
-              <option value="pepparoni">the hawaiian</option>
-              <option value="pepparoni">the big Meat</option>
+            <label htmlFor="pizza-type">Pizza Type</label>
+            <select
+              onChange={(e) => setPizzaType(e.target.value)}
+              name="pizza-type"
+              value={pizzaType}
+            >
+          {
+            pizzaTypes.map((pizza)=>(
+              <option key={pizza.id} value={pizza.id}>
+              {pizza.name}
+            </option>  
+            ))
+          }    
+          
             </select>
           </div>
           <div>
-            <label htmlFor="pizza-size">Pizza size</label>
-            <span>
-                <input type="radio" value={"S"} id="pizza-S" name="pizza-size" checked={pizzaSize==="S"}/>
-                <label htmlFor="pizza-s">small</label>
-            </span>
-            
-            <span>
-                <input type="radio" value={"M"} id="pizza-M" name="pizza-size" checked={pizzaSize==="M"}/>
-                <label htmlFor="pizza-m">medium</label>
-            </span>
-            
-            <span>
-                <input type="radio" value={"L"} id="pizza-L" name="pizza-size" checked={pizzaSize==="L"}/>
-                <label htmlFor="pizza-l">large</label>
-            </span>
+            <label htmlFor="pizza-size">Pizza Size</label>
+            <div>
+              <span>
+                <input
+                  checked={pizzaSize === "S"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
+                  type="radio"
+                  name="pizza-size"
+                  value="S"
+                  id="pizza-s"
+                />
+                <label htmlFor="pizza-s">Small</label>
+              </span>
+              <span>
+                <input
+                  checked={pizzaSize === "M"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
+                  type="radio"
+                  name="pizza-size"
+                  value="M"
+                  id="pizza-m"
+                />
+                <label htmlFor="pizza-m">Medium</label>
+              </span>
+              <span>
+                <input
+                  checked={pizzaSize === "L"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
+                  type="radio"
+                  name="pizza-size"
+                  value="L"
+                  id="pizza-l"
+                />
+                <label htmlFor="pizza-l">Large</label>
+              </span>
+            </div>
           </div>
           <button type="submit">Add to Cart</button>
+        </div>
+        <div className="order-pizza">
+        
+          <div className="order-pizza">
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              image={selectedPizza.image}
+            />
+            <p>{price}</p>
+          </div>
+        
         </div>
       </form>
     </div>
