@@ -12,18 +12,24 @@ const PizzaOfTheDay=()=>{
         return <h1>Loading...</h1>
     }
     return (
-    <div>
         <div className="pizza-of-the-day">
-            <h2>Pizza Of The Day</h2>
-        <div className="pizza-of-the-day-info">
-            <h3>{pizzaOfTheDay.name}</h3>
-            <p>{pizzaOfTheDay.description}</p>
-            <p className="pizza-of-the-day-price">From: {intl.format(pizzaOfTheDay.sizes.S)}</p>
+          <h2>Pizza of the Day</h2>
+          <div>
+            <div className="pizza-of-the-day-info">
+              <h3>{pizzaOfTheDay.name}</h3>
+              <p>{pizzaOfTheDay.description}</p>
+              <p className="pizza-of-the-day-price">
+                From: <span>{intl.format(pizzaOfTheDay.sizes.S)}</span>
+              </p>
+            </div>
+            <img
+              className="pizza-of-the-day-image"
+              src={pizzaOfTheDay.image}
+              alt={pizzaOfTheDay.name}
+            />
+          </div>
         </div>
-          <img src={pizzaOfTheDay.image} alt={pizzaOfTheDay.name} className="pizza-of-the-day-image"/>
-        </div>
-    </div>
-    )
+      );
 }
 
 export default PizzaOfTheDay;
