@@ -4,7 +4,7 @@ import Cart from "./Cart";
 
 const intl = new Intl.NumberFormat("en-IN", {
   style: "currency",
-  currency: "IND",
+  currency: "INR",
 });
 
 export default function Order() {
@@ -13,6 +13,19 @@ export default function Order() {
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
+
+  async function checkout(){
+    setLoading(true)
+    await fetch("/api/order",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body:JSON.stringify({cart})
+    })
+    setCart([])
+    setLoading(false)
+  }
 
   let price, selectedPizza;
 
@@ -113,7 +126,7 @@ export default function Order() {
           </div>
         </form>
       </div>
-      {loading ? <h2>Loading....</h2> : <Cart cart={cart} />}
+      {loading ? <h2>Loading....</h2> : <Cart checkout={checkout} cart={cart} />}
     </div>
   );
 }
