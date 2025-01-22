@@ -1,5 +1,3 @@
 import { createContext } from "react";
 
-export  const cartContext = createContext([[],function(){}])
- 
-
+export const cartContext = createContext([[], function () {}]);

@@ -1,31 +1,34 @@
-import { useState, useEffect,useContext } from "react";
-import Pizza from "./Pizza";
-import Cart from "./Cart";
-import { cartContext } from "./contexts";
+import { useState, useEffect, useContext, } from "react";
+import Pizza from "../Pizza";
+import Cart from "../Cart";
+import { cartContext } from "../contexts";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
 
+export const Route =createLazyFileRoute("/order")({
+  component:Order,
+})
 const intl = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
 });
-
-export default function Order() {
+ function Order() {
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useContext(cartContext)
-  async function checkout(){
-    setLoading(true)
-    await fetch("/api/order",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
+  const [cart, setCart] = useContext(cartContext);
+  async function checkout() {
+    setLoading(true);
+    await fetch("/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({cart})
-    })
-    setCart([])
-    setLoading(false)
+      body: JSON.stringify({ cart }),
+    });
+    setCart([]);
+    setLoading(false);
   }
 
   let price, selectedPizza;
@@ -127,7 +130,11 @@ export default function Order() {
           </div>
         </form>
       </div>
-      {loading ? <h2>Loading....</h2> : <Cart checkout={checkout} cart={cart} />}
+      {loading ? (
+        <h2>Loading....</h2>
+      ) : (
+        <Cart checkout={checkout} cart={cart} />
+      )}
     </div>
   );
 }
