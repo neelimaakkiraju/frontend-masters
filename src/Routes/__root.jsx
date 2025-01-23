@@ -20,7 +20,7 @@ export const Route = createRootRoute({
           </div>
         </cartContext.Provider>
         <TanStackRouterDevtools />
-        <ReactQueryDevtools/>
+        <ReactQueryDevtools />
       </>
     );
   },
