@@ -4,7 +4,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import getPastOrders from "../api/getPastOrders";
 
 export const Route = createLazyFileRoute("/past")({
-  coomponent: PastOrdersRoute,
+  component: PastOrdersRoute,
 });
 
 function PastOrdersRoute() {
