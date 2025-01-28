@@ -20,6 +20,10 @@ function Index() {
           {" "}
           <Link to="/past">Past Oredrs</Link>
         </li>
+        <li>
+          {" "}
+          <Link to="/contact">Contact Us</Link>
+        </li>
       </ul>
     </div>
   );
