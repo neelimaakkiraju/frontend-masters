@@ -18,7 +18,7 @@ function Index() {
         </li>
         <li>
           {" "}
-          <Link to="/past">Past Oredrs</Link>
+          <Link to="/past">Past Orders</Link>
         </li>
         <li>
           {" "}
