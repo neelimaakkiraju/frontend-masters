@@ -31,5 +31,5 @@ test("to call the API and give back the pizza of the day", async () => {
     await waitFor(() => {
       expect(result.current).toEqual(testPizza);
     });
-    expect(fetchMocker).toBeCalledWith("./api/pizza-of-the-day");
+    expect(fetchMocker).toBeCalledWith("/api/pizza-of-the-day");
   });

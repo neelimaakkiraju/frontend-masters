@@ -7,7 +7,7 @@ export const usePizzaOfTheDay = () => {
   useDebugValue("123");
   useEffect(() => {
     async function fetchPizza() {
-      const pizzaData = await fetch("./api/pizza-of-the-day");
+      const pizzaData = await fetch("/api/pizza-of-the-day");
       const data = await pizzaData.json();
       setPizzaOfTheDay(data);
     }
