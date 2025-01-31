@@ -26,7 +26,7 @@ export default defineWorkspace([
       browser: {
         provider: "playwright",
         enabled: true,
-        name: "chromium", // you can use chromium or webkit here too
+        name: "chromium", 
       },
     },
   },
